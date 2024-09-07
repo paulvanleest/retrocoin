@@ -1,0 +1,14 @@
+[Unit]
+Description=Start NFC Script
+
+[Service]
+ExecStart=/bin/bash /opt/nfc_start.sh
+User=gamer
+Environment="DISPLAY=:0"
+Environment=PULSE_SERVER=/run/user/1000/pulse/native
+Restart=always
+StandardOutput=file:/var/log/nfc_start.log
+StandardError=file:/var/log/nfc_start_error.log
+
+[Install]
+WantedBy=multi-user.target
