@@ -1,6 +1,7 @@
 #include <nfc/nfc.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 void message_decoder(const uint8_t *pbtData, const size_t szBytes);
 
