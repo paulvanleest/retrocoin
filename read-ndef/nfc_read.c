@@ -79,7 +79,7 @@ for (int block = 0; block < 64; block += 4) { // Adjusting the step to read more
 printf("Combined blocks: %s\n", combinedBlocks);
 
 }
-
+ 
 void message_decoder(const uint8_t *pbtData, const size_t szBytes) {
     // Simple example of decoding an NDEF message
     // This function should be expanded based on the specific NDEF message format
