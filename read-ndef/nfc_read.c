@@ -77,7 +77,7 @@ void message_decoder(const uint8_t *pbtData, const size_t szBytes) {
         }
     }
     printf("\n");
-}
+
 // Combine all blocks into one string
 char combinedBlocks[256] = ""; // Assuming maximum length of 256 characters
 for (int block = 0; block < 64; block += 4) { // Adjusting the step to read more data
@@ -91,3 +91,4 @@ for (int block = 0; block < 64; block += 4) { // Adjusting the step to read more
 
 // Print the combined blocks
 printf("Combined blocks: %s\n", combinedBlocks);
+}
