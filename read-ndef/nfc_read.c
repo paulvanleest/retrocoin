@@ -63,20 +63,6 @@ int main(void) {
     nfc_close(pnd);
     nfc_exit(context);
     return 0;
-}
-
-void message_decoder(const uint8_t *pbtData, const size_t szBytes) {
-    // Simple example of decoding an NDEF message
-    // This function should be expanded based on the specific NDEF message format
-    printf("Decoded NDEF message: ");
-    for (size_t i = 0; i < szBytes; i++) {
-        if (pbtData[i] >= 32 && pbtData[i] <= 126) {
-            printf("%c", pbtData[i]);
-        } else {
-            printf(".");
-        }
-    }
-    printf("\n");
 
 // Combine all blocks into one string
 char combinedBlocks[256] = ""; // Assuming maximum length of 256 characters
@@ -91,4 +77,19 @@ for (int block = 0; block < 64; block += 4) { // Adjusting the step to read more
 
 // Print the combined blocks
 printf("Combined blocks: %s\n", combinedBlocks);
+
+}
+
+void message_decoder(const uint8_t *pbtData, const size_t szBytes) {
+    // Simple example of decoding an NDEF message
+    // This function should be expanded based on the specific NDEF message format
+    printf("Decoded NDEF message: ");
+    for (size_t i = 0; i < szBytes; i++) {
+        if (pbtData[i] >= 32 && pbtData[i] <= 126) {
+            printf("%c", pbtData[i]);
+        } else {
+            printf(".");
+        }
+    }
+    printf("\n");
 }
