@@ -78,3 +78,16 @@ void message_decoder(const uint8_t *pbtData, const size_t szBytes) {
     }
     printf("\n");
 }
+// Combine all blocks into one string
+char combinedBlocks[256] = ""; // Assuming maximum length of 256 characters
+for (int block = 0; block < 64; block += 4) { // Adjusting the step to read more data
+    uint8_t command[] = { 0x30, (uint8_t)block }; // Command to read block
+    if ((res = nfc_initiator_transceive_bytes(pnd, command, sizeof(command), abtRx, sizeof(abtRx), 0)) > 0) {
+        strncat(combinedBlocks, (char*)abtRx, res);
+    } else {
+        printf("Error reading block %02d.\n", block);
+    }
+}
+
+// Print the combined blocks
+printf("Combined blocks: %s\n", combinedBlocks);
