@@ -9,10 +9,10 @@ int main(void) {
     nfc_device *pnd;
     nfc_context *context;
     nfc_target nt;
-    uint8_t abtRx[16]; // Typical block size is 16 bytes
+    uint8_t abtRx[256];
     int res;
 
-    // Initialize libnfc and set the context
+    // Initialize libnfc and set the nfc context
     nfc_init(&context);
     if (context == NULL) {
         printf("Unable to init libnfc (malloc)\n");
@@ -46,16 +46,21 @@ int main(void) {
     if ((res = nfc_initiator_select_passive_target(pnd, nm, NULL, 0, &nt)) > 0) {
         printf("The following (NFC) ISO14443A tag was found:\n");
 
-        // Loop through all blocks (assuming 16 blocks for simplicity)
+        // Combine all blocks into one string
+        char combinedBlocks[256] = ""; // Assuming maximum length of 256 characters
         for (int block = 0; block < 64; block += 4) { // Adjusting the step to read more data
             uint8_t command[] = { 0x30, (uint8_t)block }; // Command to read block
             if ((res = nfc_initiator_transceive_bytes(pnd, command, sizeof(command), abtRx, sizeof(abtRx), 0)) > 0) {
                 printf("Block %02d: ", block);
                 message_decoder(abtRx, res);
+                strncat(combinedBlocks, (char*)abtRx, res);
             } else {
                 printf("Error reading block %02d.\n", block);
             }
         }
+
+        // Print the combined blocks
+        printf("Combined blocks: %s\n", combinedBlocks);
     } else {
         printf("No NFC tag found.\n");
     }
@@ -64,23 +69,8 @@ int main(void) {
     nfc_close(pnd);
     nfc_exit(context);
     return 0;
-
-// Combine all blocks into one string
-char combinedBlocks[256] = ""; // Assuming maximum length of 256 characters
-for (int block = 0; block < 64; block += 4) { // Adjusting the step to read more data
-    uint8_t command[] = { 0x30, (uint8_t)block }; // Command to read block
-    if ((res = nfc_initiator_transceive_bytes(pnd, command, sizeof(command), abtRx, sizeof(abtRx), 0)) > 0) {
-        strncat(combinedBlocks, (char*)abtRx, res);
-    } else {
-        printf("Error reading block %02d.\n", block);
-    }
 }
 
-// Print the combined blocks
-printf("Combined blocks: %s\n", combinedBlocks);
-
-}
- 
 void message_decoder(const uint8_t *pbtData, const size_t szBytes) {
     // Simple example of decoding an NDEF message
     // This function should be expanded based on the specific NDEF message format
