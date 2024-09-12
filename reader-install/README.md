@@ -31,3 +31,11 @@ sudo systemctl restart pcscd
 
 9. Test the NFC Reader: Use the nfc-list command to check if the NFC reader is detected:
 nfc-list
+
+
+Maybe needed:
+Download the source code: git clone -b ubuntu https://github.com/juliagoda/CH341SER.git
+Goto the directory of the source code
+Compile: make
+Sign the module (needed in systems with secure boot enabled) : kmodsign sha512 /var/lib/shim-signed/mok/MOK.priv /var/lib/shim-signed/mok/MOK.der ./ch34x.ko
+Load module: make load
