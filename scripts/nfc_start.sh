@@ -69,7 +69,7 @@ while true; do
     fi
 
     # Lees de huidige tag
-    current_tag=$(./read-ndef/nfc_read)
+    current_tag=$(../read-ndef/nfc_read)
 
     # # Reset NFC reader (want die hangt na inlezen via python)
     # usb_modeswitch -R -v 072f -p 2200
