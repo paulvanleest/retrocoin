@@ -51,7 +51,6 @@ int main(void) {
         for (int block = 0; block < 64; block += 4) { // Adjusting the step to read more data
             uint8_t command[] = { 0x30, (uint8_t)block }; // Command to read block
             if ((res = nfc_initiator_transceive_bytes(pnd, command, sizeof(command), abtRx, sizeof(abtRx), 0)) > 0) {
-                // printf("Block %02d: ", block);
                 message_decoder(abtRx, res);
                 strncat(combinedBlocks, (char*)abtRx, res);
             } else {
