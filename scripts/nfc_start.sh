@@ -36,10 +36,10 @@ TAG_STATUS_FILE="/tmp/tag_status"
 
 
 # Functie om te controleren of er een tag aanwezig is
-is_tag_present() {
-    nfc-list | grep -q "NFC device"
-    return $?
-}
+# is_tag_present() {
+#     nfc-list | grep -q "NFC device"
+#     return $?
+# }
 
 # Functie om het commando uit te voeren
 execute_command() {
@@ -56,14 +56,15 @@ execute_command() {
     fi
 }
 
-# Initialiseer de status van de tag
-echo "none" > $TAG_STATUS_FILE
+# Lees de huidige tag en initialiseer de tag status file
+current_tag=$(../read-ndef/nfc_read)
+echo "$current_tag" > $TAG_STATUS_FILE
 
 while true; do
     # Controleer of er een tag aanwezig is
-    if ! is_tag_present; then
+    if [$(../read-ndef/nfc_read) -eq "No NFC tag found." then
         echo "Geen tag gedetecteerd"
-        echo "none" > $TAG_STATUS_FILE
+        echo "No NFC tag found." > $TAG_STATUS_FILE
         sleep 4
         continue
     fi
@@ -85,7 +86,7 @@ while true; do
     previous_tag=$(cat $TAG_STATUS_FILE)
 
     # Voer het commando uit als de tag nieuw is of als de tag opnieuw is geplaatst
-    if [ "$current_tag" != "$previous_tag" ]; then
+    if [ "No NFC tag found." == "$previous_tag" ] && [ "$current_tag" != "No NFC tag found." ]; then
         execute_command "$current_tag"
         # Update de tag status
         echo "$current_tag" > $TAG_STATUS_FILE
