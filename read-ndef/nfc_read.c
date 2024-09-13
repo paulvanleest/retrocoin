@@ -44,13 +44,14 @@ int main(void) {
     };
 
     if ((res = nfc_initiator_select_passive_target(pnd, nm, NULL, 0, &nt)) > 0) {
-        printf("The following (NFC) ISO14443A tag was found:\n");
+        // printf("The following (NFC) ISO14443A tag was found:\n");
 
         // Combine all blocks into one string
         char combinedBlocks[256] = ""; // Assuming maximum length of 256 characters
         for (int block = 0; block < 64; block += 4) { // Adjusting the step to read more data
             uint8_t command[] = { 0x30, (uint8_t)block }; // Command to read block
             if ((res = nfc_initiator_transceive_bytes(pnd, command, sizeof(command), abtRx, sizeof(abtRx), 0)) > 0) {
+                // printf("Block %02d: ", block);
                 message_decoder(abtRx, res);
                 strncat(combinedBlocks, (char*)abtRx, res);
             } else {
@@ -75,13 +76,13 @@ int main(void) {
 void message_decoder(const uint8_t *pbtData, const size_t szBytes) {
     // Simple example of decoding an NDEF message
     // This function should be expanded based on the specific NDEF message format
-    printf("Decoded NDEF message: ");
+    // printf("Decoded NDEF message: ");
     for (size_t i = 0; i < szBytes; i++) {
         if (pbtData[i] >= 32 && pbtData[i] <= 126) {
-            printf("%c", pbtData[i]);
+            // printf("%c", pbtData[i]);
         } else {
-            printf(".");
+            // printf(".");
         }
     }
-    printf("\n");
+    // printf("\n");
 }
