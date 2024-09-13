@@ -19,7 +19,7 @@ execute_command() {
 }
 
 # Lees de huidige tag en initialiseer de tag status file
-current_tag=$(../read-ndef/nfc_read)
+current_tag=$(/opt/nfc-read/nfc_read)
 echo "$current_tag" > $TAG_STATUS_FILE
 
 while true; do
@@ -27,24 +27,17 @@ while true; do
     if [ "$(../read-ndef/nfc_read)" == "No NFC tag found." ]; then
         echo "Geen tag gedetecteerd"
         echo "No NFC tag found." > $TAG_STATUS_FILE
-        sleep 4
+        # sleep 3
         continue
     fi
 
     # Lees de huidige tag
     current_tag=$(../read-ndef/nfc_read)
-
-    # Controleer of de game-naam is opgehaald
-    if [ -z "$current_tag" ]; then
-        echo "De tag is leeg"
-        sleep 4
-        continue
-    fi
-
     # Lees de vorige tag status
     previous_tag=$(cat $TAG_STATUS_FILE)
 
-    # Voer het commando uit als de tag nieuw is of als de tag opnieuw is geplaatst
+
+    # Voer het commando uit als een tag wordt geplaatst
     if [ "No NFC tag found." == "$previous_tag" ] && [ "$current_tag" != "No NFC tag found." ]; then
         execute_command "$current_tag"
         # Update de tag status
@@ -52,5 +45,5 @@ while true; do
     fi
 
     # Wacht even voordat je opnieuw leest
-    sleep 4
+    sleep 3
 done
