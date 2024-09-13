@@ -24,7 +24,7 @@ echo "$current_tag" > $TAG_STATUS_FILE
 
 while true; do
     # Controleer of er een tag aanwezig is
-    if [ "$(../read-ndef/nfc_read)" == "No NFC tag found." ]; then
+    if [ "$(/opt/nfc-read/nfc_read)" == "No NFC tag found." ]; then
         echo "Geen tag gedetecteerd"
         echo "No NFC tag found." > $TAG_STATUS_FILE
         # sleep 3
@@ -32,7 +32,7 @@ while true; do
     fi
 
     # Lees de huidige tag
-    current_tag=$(../read-ndef/nfc_read)
+    current_tag=$(/opt/nfc-read/nfc_read)
     # Lees de vorige tag status
     previous_tag=$(cat $TAG_STATUS_FILE)
 
