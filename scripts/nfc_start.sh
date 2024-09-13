@@ -4,35 +4,35 @@
 TAG_STATUS_FILE="/tmp/tag_status"
 
 # Functie om de NFC-tag te lezen
-read_nfc_tag() {
-    python3 - <<END
-import nfc
-import ndef
+# read_nfc_tag() {
+#     python3 - <<END
+# import nfc
+# import ndef
 
-print("Python script gestart")
+# print("Python script gestart")
 
-def on_connect(tag):
-    print("Tag connected")
-    if tag.ndef:
-        print("NDEF records found")
-        for record in tag.ndef.records:
-            if isinstance(record, ndef.TextRecord):
-                print(f"Record text: {record.text}")
-                return record.text
-    print("No NDEF records found or not a text record")
-    return ""
+# def on_connect(tag):
+#     print("Tag connected")
+#     if tag.ndef:
+#         print("NDEF records found")
+#         for record in tag.ndef.records:
+#             if isinstance(record, ndef.TextRecord):
+#                 print(f"Record text: {record.text}")
+#                 return record.text
+#     print("No NDEF records found or not a text record")
+#     return ""
 
-try:
-    clf = nfc.ContactlessFrontend('usb')
-    if not clf:
-        print("Failed to open NFC frontend")
-    else:
-        print("NFC frontend opened successfully")
-        clf.connect(rdwr={'on-connect': on_connect})
-except Exception as e:
-    print(f"Exception occurred: {e}")
-END
-}
+# try:
+#     clf = nfc.ContactlessFrontend('usb')
+#     if not clf:
+#         print("Failed to open NFC frontend")
+#     else:
+#         print("NFC frontend opened successfully")
+#         clf.connect(rdwr={'on-connect': on_connect})
+# except Exception as e:
+#     print(f"Exception occurred: {e}")
+# END
+# }
 
 
 # Functie om te controleren of er een tag aanwezig is
@@ -64,20 +64,20 @@ while true; do
     if ! is_tag_present; then
         echo "Geen tag gedetecteerd"
         echo "none" > $TAG_STATUS_FILE
-        sleep 1
+        sleep 4
         continue
     fi
 
     # Lees de huidige tag
-    current_tag=$(read_nfc_tag)
+    current_tag=$(./read-ndef/nfc_read)
 
-    # Reset NFC reader (want die hangt na inlezen via python)
-    usb_modeswitch -R -v 072f -p 2200
+    # # Reset NFC reader (want die hangt na inlezen via python)
+    # usb_modeswitch -R -v 072f -p 2200
 
     # Controleer of de game-naam is opgehaald
     if [ -z "$current_tag" ]; then
         echo "De tag is leeg"
-        sleep 1
+        sleep 4
         continue
     fi
 
@@ -92,5 +92,5 @@ while true; do
     fi
 
     # Wacht even voordat je opnieuw leest
-    sleep 1
+    sleep 4
 done
