@@ -58,7 +58,9 @@ int main(void) {
                 printf("Error reading block %02d.\n", block);
             }
         }
-
+        // Remove the first 16 characters and the last character of combinedBlocks
+        memmove(combinedBlocks, combinedBlocks + 16, strlen(combinedBlocks) - 16);
+        combinedBlocks[strlen(combinedBlocks) - 17] = '\0';
         // Print the combined blocks
         printf("Combined blocks: %s\n", combinedBlocks);
     } else {
