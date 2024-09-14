@@ -66,3 +66,4 @@ What I use:
 - Seperate on/off switch (soldered into NUC)
 - PN532 NFC reader/writer
 - coin tags and holders
+- currently in the process of making a "coincollector"
