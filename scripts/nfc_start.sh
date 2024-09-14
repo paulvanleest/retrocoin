@@ -1,9 +1,9 @@
 #!/bin/bash
 
-# Bestand om de status van de tag op te slaan
+# File to save the tag status
 TAG_STATUS_FILE="/tmp/tag_status"
 
-# Functie om het commando uit te voeren
+# Function to execute the command
 execute_command() {
     echo "Tag gedetecteerd, start programma"
 
@@ -18,22 +18,22 @@ execute_command() {
     fi
 }
 
-# Lees de huidige tag en initialiseer de tag status file
+# Read current tag and save it to the file
 current_tag=$(/opt/nfc-read/nfc_read)
 echo "$current_tag" > $TAG_STATUS_FILE
 
 while true; do
-    # Lees de vorige tag status
+    # Read the previous tag
     previous_tag=$(cat $TAG_STATUS_FILE)
-    # Lees de huidige tag
+    # Read the current tag
     current_tag=$(/opt/nfc-read/nfc_read)
 
-    # Controleer of er een tag aanwezig is
+    # Check if the tag is removed
     if [ "$current_tag" == "No NFC tag found." ]; then
         echo "Geen tag gedetecteerd"
         echo "No NFC tag found." > $TAG_STATUS_FILE
 
-        # Kill het tot de eerste spatie afgekorte commando met pkill als de tag wordt vewrwijderd
+        # Kill the process if the tag is removed
         if [ "No NFC tag found." != "$previous_tag" ]; then
             binary_path=$(echo $previous_tag | awk '{print $1}')
             truncated_binary=$(basename $binary_path)
@@ -44,13 +44,11 @@ while true; do
         continue
     fi
 
-    # Voer het commando uit als een tag wordt geplaatst
+    # Execute the command if the tag is detected
     if [ "No NFC tag found." == "$previous_tag" ] && [ "$current_tag" != "No NFC tag found." ]; then
         execute_command "$current_tag"
-        # Update de tag status
+        # Update the tag status
         echo "$current_tag" > $TAG_STATUS_FILE
     fi
-
-    # Wacht even voordat je opnieuw leest
     sleep 3
 done

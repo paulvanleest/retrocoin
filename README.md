@@ -4,11 +4,7 @@ Use NFC-tags as "real coins" to start arcade games in a tabletop
 
 1.  install ubuntu
     Lots of guides to do this, not part of this readme
-    Make it your own (like add a nice arcade background, hide all bars and buttons et cetera)
-    Autostart without login, keepalive without locking
-    Other fun enhancements like switching backgrounds or play arcade demo/intro shorts
-
-    Note: Another distro can be used, but that is not part of this readme. Figure it out/create a fork/whatever
+    Another distro can be used, but that is not part of this readme. Figure it out/create a fork/whatever
 
 2.  Make sure your NFC reader works (this can be a whole chapter on it s own), see reader-install/README.md for (unfinished) documentation
 
@@ -36,4 +32,24 @@ Use NFC-tags as "real coins" to start arcade games in a tabletop
 
 6.  If there is sound, but no display: Sometimes, you need to allow access to the X server. You can do this by running:
     xhost +local:
-    this appears a temporary fix, after reboot this command is needed again. Permanent fix: ..........
+    this appears a temporary fix, after reboot this command is needed again. Permanent fix: add it to autostart:
+    mkdir ~/.config/autostart
+    sudo nano ~/.config/autostart/xhost.desktop
+    insert code:
+        [Desktop Entry]
+        Type=Application
+        Exec=xhost +local:
+        Hidden=false
+        NoDisplay=false
+        X-GNOME-Autostart-enabled=true
+        Name[en_US]=xhost
+        Name=xhost
+        Comment[en_US]=Allow local connections
+        Comment=Allow local connections
+
+7.  Make it your own (or not)
+    Setup an arcade background
+    Hide all bars and buttons
+    Autostart without login
+    Keepalive without locking
+    Other fun enhancements like switching backgrounds or play arcade demo/intro shorts
