@@ -1,7 +1,7 @@
 # retrocoin
 Use NFC-tags as "real coins" to start arcade games in a tabletop
 
-
+########## SOFTWARE PART ###########
 1.  install ubuntu
     Lots of guides to do this, not part of this readme
     Another distro can be used, but that is not part of this readme. Figure it out/create a fork/whatever
@@ -53,3 +53,16 @@ Use NFC-tags as "real coins" to start arcade games in a tabletop
     Autostart without login
     Keepalive without locking
     Other fun enhancements like switching backgrounds or play arcade demo/intro shorts
+
+I have now only configured fbneo, but any program can be installed and run with the coins
+
+########## HARDWARE PART ###########
+What I use:
+- Self-made tabletop from MDF
+- Old monitor
+- Intel NUC equivalent (mounted on back of monitor)
+- Ultimarc I-PAC 2
+- 2 joys and multiple buttons
+- Seperate on/off switch (soldered into NUC)
+- PN532 NFC reader/writer
+- coin tags and holders
