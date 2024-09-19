@@ -1,19 +1,35 @@
-# retrocoin
+# RETROCOIN
+
 Use NFC-tags as "real coins" to start arcade games in a self-made tabletop.
+
+- [RETROCOIN](#retrocoin)
+  - [SOFTWARE](#software)
+    - [Install Ubuntu](#install-ubuntu)
+    - [Make sure your NFC reader works](#make-sure-your-nfc-reader-works)
+    - [install and configure fbneo (in /opt)](#install-and-configure-fbneo-in-opt)
+    - [install nfc\_read](#install-nfc_read)
+    - [install and enable the script and daemon-service](#install-and-enable-the-script-and-daemon-service)
+    - [Prepare the coins](#prepare-the-coins)
+    - [Fix the sound](#fix-the-sound)
+    - [Make it your own (or not)](#make-it-your-own-or-not)
+  - [HARDWARE](#hardware)
 
 Please let me know if you use any of my code or what project you are starting. It's always nice to hear when this is usefull for anyone else.
 
-########## SOFTWARE PART ###########
+## SOFTWARE
 
-1. install ubuntu
+### Install Ubuntu
+
    Lots of guides to do this, not part of this readme.
    Another distro can be used, but that is not part of this readme. Figure it out/create a fork/whatever.
 
-2. Make sure your NFC reader works.
+### Make sure your NFC reader works
+
    This can be a whole chapter on its own.
    See reader-install/README.md for (unfinished) documentation
 
-3. install and configure fbneo (in /opt)
+### install and configure fbneo (in /opt)
+
    FBNeo requires libsdl2-2.0-0, libsdl2-dev, libsdl2-image-2.0-0, libsdl2-image-dev, build-essential, perl and nasm, so go to a terminal nd enter:
 
    ```bash
@@ -35,10 +51,11 @@ Please let me know if you use any of my code or what project you are starting. I
    Then start from desktop again and setting it up from there, run a rom scan and testing a game
    Then test is if works by starting a game from the command line
 
-4. install nfc_read
+### install nfc_read
+
    copy binary nfc_read to /opt/nfc-read (or compile a new one from nfc_read.c) 
 
-5. install and enable the script and daemon-service
+### install and enable the script and daemon-service
 
    ```bash
    sudo cp scripts/nfc_start.sh /opt/
@@ -47,17 +64,24 @@ Please let me know if you use any of my code or what project you are starting. I
    sudo systemctl start nfc_start.service
    ```
 
-6. Prepare the coins.
-    Write the tags using any tag writer or your phone to create a NDEF text record in the tag.
-    The tag must contain the full command, example: /opt/FBNeo/fbneo -integerscale -fullscreen -joy ddragon3
+### Prepare the coins
 
-7. If there is sound, but no display: Sometimes, you need to allow access to the X server. You can do this by running:
-   
+   Write the tags using any tag writer or your phone to create a NDEF text record in the tag.
+   The tag must contain the full command, example:
+
+   ```bash
+    /opt/FBNeo/fbneo -integerscale -fullscreen -joy ddragon3
+   ```
+
+### Fix the sound
+
+   If there is sound, but no display: Sometimes, you need to allow access to the X server. You can do this by running:
+
    ```bash
    xhost +local:
    ```
-   
-   this appears a temporary fix, after reboot this command is needed again. Permanent fix: add it to autostart:
+
+   This is a temporary fix, after reboot this command is needed again. Permanent fix is to add it to autostart:
 
    ```bash
    mkdir ~/.config/autostart
@@ -79,16 +103,16 @@ Please let me know if you use any of my code or what project you are starting. I
        Comment=Allow local connections
    ```
 
-8. Make it your own (or not)
+### Make it your own (or not)
+
    Setup an arcade background
    Hide all bars and buttons
    Autostart without login
    Keepalive without locking
    Other fun enhancements like switching backgrounds or play arcade demo/intro shorts
+   I have now only configured fbneo, but any program can be installed and run with the coins. So if some games require mame, go ahead and install it and write your tag/coin accordingly.
 
-I have now only configured fbneo, but any program can be installed and run with the coins. So if some games require mame, go ahead and install it and write your coin accordingly.
-
-########## HARDWARE PART ###########
+## HARDWARE
 
 What I use:
 
