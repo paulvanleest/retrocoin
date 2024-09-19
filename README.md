@@ -1,12 +1,16 @@
 # retrocoin
-Use NFC-tags as "real coins" to start arcade games in a tabletop
+Use NFC-tags as "real coins" to start arcade games in a self-made tabletop.
+
+Please let me know if you use any of my code or what project you are starting. It's always nice to hear when this is usefull for anyone else.
 
 ########## SOFTWARE PART ###########
 1.  install ubuntu
-    Lots of guides to do this, not part of this readme
-    Another distro can be used, but that is not part of this readme. Figure it out/create a fork/whatever
+    Lots of guides to do this, not part of this readme.
+    Another distro can be used, but that is not part of this readme. Figure it out/create a fork/whatever.
 
-2.  Make sure your NFC reader works (this can be a whole chapter on it s own), see reader-install/README.md for (unfinished) documentation
+2.  Make sure your NFC reader works.
+    This can be a whole chapter on its own.
+    See reader-install/README.md for (unfinished) documentation
 
 3.  install and configure fbneo (in /opt)
     FBNeo requires libsdl2-2.0-0, libsdl2-dev, libsdl2-image-2.0-0, libsdl2-image-dev, build-essential, perl and nasm, so go to a terminal and enter:
@@ -30,7 +34,11 @@ Use NFC-tags as "real coins" to start arcade games in a tabletop
     sudo systemctl enable nfc_start.service
     sudo systemctl start nfc_start.service
 
-6.  If there is sound, but no display: Sometimes, you need to allow access to the X server. You can do this by running:
+6.  Prepare the coins.
+    Write the tags using any tag writer or your phone to create a NDEF text record in the tag.
+    The tag must contain the full command, example: /opt/FBNeo/fbneo -integerscale -fullscreen -joy ddragon3
+
+7.  If there is sound, but no display: Sometimes, you need to allow access to the X server. You can do this by running:
     xhost +local:
     this appears a temporary fix, after reboot this command is needed again. Permanent fix: add it to autostart:
     mkdir ~/.config/autostart
@@ -47,14 +55,16 @@ Use NFC-tags as "real coins" to start arcade games in a tabletop
         Comment[en_US]=Allow local connections
         Comment=Allow local connections
 
-7.  Make it your own (or not)
+8.  Make it your own (or not)
     Setup an arcade background
     Hide all bars and buttons
     Autostart without login
     Keepalive without locking
     Other fun enhancements like switching backgrounds or play arcade demo/intro shorts
 
-I have now only configured fbneo, but any program can be installed and run with the coins
+
+I have now only configured fbneo, but any program can be installed and run with the coins. So if some games require mame, go ahead and install it and write your coin accordingly.
+
 
 ########## HARDWARE PART ###########
 What I use:
