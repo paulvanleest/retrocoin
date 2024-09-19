@@ -52,11 +52,21 @@ Please let me know if you use any of my code or what project you are starting. I
     The tag must contain the full command, example: /opt/FBNeo/fbneo -integerscale -fullscreen -joy ddragon3
 
 7. If there is sound, but no display: Sometimes, you need to allow access to the X server. You can do this by running:
+   
+   ```bash
    xhost +local:
+   ```
+   
    this appears a temporary fix, after reboot this command is needed again. Permanent fix: add it to autostart:
+
+   ```bash
    mkdir ~/.config/autostart
    sudo nano ~/.config/autostart/xhost.desktop
+   ```
+
    insert code:
+
+   ```bash
        [Desktop Entry]
        Type=Application
        Exec=xhost +local:
@@ -67,6 +77,7 @@ Please let me know if you use any of my code or what project you are starting. I
        Name=xhost
        Comment[en_US]=Allow local connections
        Comment=Allow local connections
+   ```
 
 8. Make it your own (or not)
    Setup an arcade background
