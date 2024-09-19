@@ -89,7 +89,9 @@ Please let me know if you use any of my code or what project you are starting. I
 I have now only configured fbneo, but any program can be installed and run with the coins. So if some games require mame, go ahead and install it and write your coin accordingly.
 
 ########## HARDWARE PART ###########
+
 What I use:
+
 - Self-made tabletop from MDF
 - Old monitor
 - Intel NUC equivalent (mounted on back of monitor)
