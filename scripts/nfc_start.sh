@@ -38,7 +38,11 @@ while true; do
             binary_path=$(echo $previous_tag | awk '{print $1}')
             truncated_binary=$(basename $binary_path)
             echo "Tag verwijderd, stop programma $truncated_binary"
-            pkill $truncated_binary
+            # Find and kill all game related processes (including child processes)
+            pids=$(pgrep mame)
+            for pid in $pids; do
+                sudo kill -9 $pid
+            done
         fi
         sleep 3
         continue
