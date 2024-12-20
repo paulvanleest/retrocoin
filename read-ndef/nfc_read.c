@@ -74,8 +74,7 @@ int main(void) {
 }
 
 void message_decoder(const uint8_t *pbtData, const size_t szBytes) {
-    // Simple example of decoding an NDEF message
-    // This function should be expanded based on the specific NDEF message format
+    // decoding NDEF message
     // printf("Decoded NDEF message: ");
     for (size_t i = 0; i < szBytes; i++) {
         if (pbtData[i] >= 32 && pbtData[i] <= 126) {
